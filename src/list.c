@@ -9,8 +9,7 @@ typedef struct Node{
 
 typedef struct
 {
-    char* head;
-    char* tail;
+    Node*  head;
     unsigned int size;
 }Mylist;
 
@@ -19,7 +18,6 @@ Mylist createList()
     Mylist l;
     l.size = 0;
     l.head = NULL;
-    l.tail = NULL;
     return l;
 }
 
@@ -29,10 +27,17 @@ void headpush(Mylist* l,char* obj)
     newNode->data = obj;
     newNode->next = l->head;
     l->head = newNode;
+    l->size += 1;
 }
 
 
 int main()
 {
+    Mylist l = createList();
+    headpush(&l,"hi");
+    headpush(&l,"priv");
+    headpush(&l,"wirld");
+    headpush(&l,"world");
+
     return 1;
 }
