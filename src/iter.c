@@ -1,6 +1,6 @@
 #include "stdio.h"
 #include "../include/list.h"
-
+#include <stdbool.h>
 
 
 typedef struct
@@ -28,4 +28,9 @@ char* next(iter* it)
     char* data = it->iter->data;
     it->iter = it->iter->next;
     return data;
+}
+
+bool hasNext(iter* it)
+{
+    return it->iter->next != NULL;
 }
