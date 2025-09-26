@@ -3,6 +3,8 @@
 #include "string.h"
 #include <stdbool.h>
 
+#define ERROR_CHAR '\0'
+
 typedef struct Node{
     char* data;
     struct Node* next; 
@@ -45,6 +47,24 @@ void headpop(Mylist* l)
     if (l->size > 0)
         l->size--;
 }
+
+char* getAt(Mylist* l, int index)
+{
+    if (index > l->size){
+        printf("[ERROR]IndexMoreThanSize_incorrect_index");
+        return ERROR_CHAR;
+    }
+    for (int i = 0; i <= index; i++){
+        l->head = l->head->next;
+        if(l->head == NULL){
+            printf("[ERROR]headPointerIsNULL_incorrect_index");
+            break;
+        }
+    }
+        
+    return l->head->data;    
+}
+
 
 bool isEmpty(Mylist* l)
 {
