@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "string.h"
 
+
 typedef struct Node{
     char* data;
     struct Node* next; 
@@ -30,14 +31,3 @@ void headpush(Mylist* l,char* obj)
     l->size += 1;
 }
 
-
-int main()
-{
-    Mylist l = createList();
-    headpush(&l,"hi");
-    headpush(&l,"priv");
-    headpush(&l,"wirld");
-    headpush(&l,"world");
-
-    return 1;
-}

@@ -14,7 +14,7 @@ iter begin(Mylist* l)
     iter it; 
     if(l->head == NULL){
         printf("[ERROR]headPointerIsNULL");
-        return;
+        return it;
     }
     it.iter = l->head;
 
