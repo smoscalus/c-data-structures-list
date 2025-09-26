@@ -35,7 +35,20 @@ bool hasNext(iter* it)
     return it->iter->next != NULL;
 }
 
+void reset(iter* it, Mylist* l)
+{
+    if (l->head == NULL)
+        printf("[ERORR]headPointerIsNULL");
+    it->iter->next = l->head;
+}
+
 char* get(iter* it)
 {
     return it->iter->data;
 }
+
+bool equals(iter* it1, iter* it2)
+{
+    return it1->iter->data == it2->iter->data ? true : false;
+}
+
