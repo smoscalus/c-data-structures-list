@@ -11,7 +11,7 @@ typedef struct
 
 iter begin(Mylist* l);
 
-void next(iter* it);
+char* next(iter* it);
 
 
 #endif
