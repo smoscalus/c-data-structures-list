@@ -12,5 +12,9 @@ typedef struct
     unsigned int size;
 }Mylist;
 
+Mylist createList();
+
+void headpush(Mylist* l,char* obj);
+
 
 #endif

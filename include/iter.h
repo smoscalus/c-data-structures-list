@@ -9,7 +9,9 @@ typedef struct
 }iter;
 
 
-Node* begin(Mylist* l);
+iter begin(Mylist* l);
+
+void next(iter* it);
 
 
 #endif
