@@ -34,3 +34,8 @@ bool hasNext(iter* it)
 {
     return it->iter->next != NULL;
 }
+
+char* get(iter* it)
+{
+    return it->iter->data;
+}
