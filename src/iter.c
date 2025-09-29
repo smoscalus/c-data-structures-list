@@ -21,18 +21,27 @@ iter begin(Mylist* l)
     return it;
 }
 
-char* next(iter* it)
+iter* next(iter* it)
 {
     if (it == NULL || it->node == NULL) 
         return NULL;
-    char* data = it->node->data;
     it->node = it->node->next;
-    return data;
+    return it;
+}
+char* nextvalue(iter* it)
+{
+    iter* temp = next(&it);
+    return temp->node->data ? temp->node->data : NULL;
 }
 
 bool hasNext(iter* it)
 {
     return it->node->next != NULL;
+}
+
+char* get(iter* it)
+{
+    return it->node->data;
 }
 
 void reset(iter* it, Mylist* l)
@@ -42,10 +51,7 @@ void reset(iter* it, Mylist* l)
     it->node->next = l->head;
 }
 
-char* get(iter* it)
-{
-    return it->node->data;
-}
+
 
 bool equals(iter* it1, iter* it2)
 {
