@@ -48,21 +48,39 @@ void headpop(Mylist* l)
         l->size--;
 }
 
+char* find(Mylist* l, char* val)
+{   
+    Node* current = l->head;
+    for (int i = 0; i <= l->size; i++){
+        if(current == NULL){
+            printf("[ERROR]headPointerIsNULL_incorrect_value");
+            return NULL;
+        }
+        if (strcmp(current->data,current->next->data) == 0)
+            return current->next->data;
+
+        current = current->next;
+    }
+        
+    return current->data;    
+}
+
 char* getAt(Mylist* l, int index)
 {
+    Node* current = l->head;
     if (index > l->size){
         printf("[ERROR]IndexMoreThanSize_incorrect_index");
         return ERROR_CHAR;
     }
     for (int i = 0; i <= index; i++){
-        l->head = l->head->next;
-        if(l->head == NULL){
+        current = current->next;
+        if(current == NULL){
             printf("[ERROR]headPointerIsNULL_incorrect_index");
             break;
         }
     }
         
-    return l->head->data;    
+    return current->data;    
 }
 
 
