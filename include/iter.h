@@ -12,8 +12,7 @@ typedef struct
 
 iter begin(Mylist* l);
 
-char* next(iter* it);
-
+iter* next(iter* it);
 bool hasNext(iter* it);
 
 void reset(iter* it, Mylist* l);
