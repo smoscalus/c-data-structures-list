@@ -6,7 +6,7 @@
 
 typedef struct
 {
-    Node* iter;
+    Node* node;
 }iter;
 
 
