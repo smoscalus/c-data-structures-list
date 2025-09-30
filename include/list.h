@@ -15,12 +15,21 @@ typedef struct
 }Mylist;
 
 Mylist createList();
+// _______________________________________________________________
 
 void headpush(Mylist* l,char* obj);
 void headpop(Mylist* l);
 
-char* find(Mylist* l, char* val);
-char* getAt(Mylist* l, int index);
+// _______________________________________________________________
+
+Node* find(Mylist* l, const char* val);
+char* findValue(Mylist* l, const char* val);
+
+
+Node* getByIndex(Mylist* l, unsigned int index);
+char* getValueByIndex(Mylist* l, unsigned int index);
+
+// _______________________________________________________________
 
 bool isEmpty(Mylist* l);
 

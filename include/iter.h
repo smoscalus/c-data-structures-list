@@ -12,13 +12,20 @@ typedef struct
 
 iter begin(Mylist* l);
 
-iter* next(iter* it);
-bool hasNext(iter* it);
+// _______________________________________________________________
 
-void reset(iter* it, Mylist* l);
+iter* next(iter* it);
+char* nextvalue(iter* it);
 
 char* get(iter* it);
 
+// _______________________________________________________________
+
+void reset(iter* it, Mylist* l);
 bool equals(iter* it1, iter* it2);
+
+// _______________________________________________________________
+
+bool hasNext(iter* it);
 
 #endif
