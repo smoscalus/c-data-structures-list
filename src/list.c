@@ -13,6 +13,7 @@ typedef struct Node{
 typedef struct
 {
     Node*  head;
+    Node*  tail;
     unsigned int size;
 }Mylist;
 
@@ -21,6 +22,7 @@ Mylist createList()
     Mylist l;
     l.size = 0;
     l.head = NULL;
+    l.tail = NULL;
     return l;
 }
 
@@ -32,12 +34,60 @@ void headpush(Mylist* l,char* obj)
     newNode->data = obj;
     newNode->next = l->head;
     l->head = newNode;
+
+    if (l->tail == NULL)
+        l->tail = newNode;
+
     l->size += 1;
 }
+void tailpush(Mylist* l,char* obj)
+{
+    Node* newNode = malloc(sizeof(newNode));
+    newNode->data = obj;
+    newNode->next = NULL;
 
+    if (l->head == NULL){
+        l->head = newNode;
+        l->tail = newNode;
+    }
+    else 
+    {
+        l->tail->next = newNode;
+        l->tail = newNode;
+    }
+    
+    l->size += 1;
+}
+void tailpop(Mylist* l)
+{
+    if (l->head == NULL){
+        printf("[ERROR]tailPointerIsNULL");
+        return;
+    }
+
+    if (l->head == l->tail){
+        Node* temp = l->head;
+        free(temp);
+        l->head = NULL;
+        l->tail = NULL;
+    }
+    else 
+    {
+        Node* temp = l->head;
+        while (temp->next != l->tail)
+                temp = temp->next;
+
+        free(l->tail);
+        l->tail = temp;
+        temp->next = NULL;
+    }
+
+    
+    l->size--;
+}
 void headpop(Mylist* l)
 {
-    if (l->head->next == NULL){
+    if (l->head == NULL){
         printf("[ERROR]headPointerIsNULL");
         return;
     }

@@ -11,6 +11,7 @@ typedef struct Node{
 typedef struct
 {
     Node* head;
+    Node*  tail;
     unsigned int size;
 }Mylist;
 
@@ -19,6 +20,7 @@ Mylist createList();
 
 void headpush(Mylist* l,char* obj);
 void headpop(Mylist* l);
+void tailpush(Mylist* l,char* obj);
 
 // _______________________________________________________________
 
