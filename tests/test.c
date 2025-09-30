@@ -14,34 +14,25 @@ int main()
     headpush(&l,"wirld");
     headpush(&l,"world");
 
-    for (iter i = begin(&l);hasNext(&i);next(&i)){
+    iter i = begin(&l);
+    for (;hasNext(&i);next(&i)){
         printf("%s \n",i.node->data);
     }
-
-    headpop(&l);  
-
-    printf("___________________________\n");
-
-    for (iter i = begin(&l);hasNext(&i);next(&i)){
-        printf("%s \n",i.node->data);
+    printf("%s \n",get(&i));
+    reset(&i,&l);
+    printf("________________________\n");
+    printf("%s \n",get(&i));
+    printf("%s \n",nextvalue(&i)); 
+    printf("__________for______________\n");
+    int j = 0;
+    for(iter it = begin(&l);hasNext(&i);next(&i),j++){
+        for(iter it2 = begin(&l);hasNext(&i);next(&i))
+            if(equals(&it,&it2))
+                printf("%s \n",it.node->data);
+        printf("%d",j);
     }
 
-    printf("___________________________\n");
-    Node* temp = find(&l, "priv");
-    printf("%s \n%s \n", temp->data, findValue(&l,"priv"));
-
-    printf("___________________________\n");
-
-    headpush(&l,"wirld");
-    headpush(&l,"world");
-
-    Node* temp2 = getByIndex(&l,2);
-    printf("%s \n%s \n", temp2->data, getValueByIndex(&l,2));
-
-    printf("___________________________\n");
-
-
-    printf("%d \n", isEmpty(&l));
-    
+               
+    printf("________________________\n");
     return 1;
 }
