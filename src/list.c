@@ -24,6 +24,8 @@ Mylist createList()
     return l;
 }
 
+// _______________________________________________________________
+
 void headpush(Mylist* l,char* obj)
 {
     Node* newNode = malloc(sizeof(newNode));
@@ -44,11 +46,12 @@ void headpop(Mylist* l)
     l->head = l->head->next; 
     free(temp);
     
-    if (l->size > 0)
-        l->size--;
+    l->size--;
 }
 
-char* find(Mylist* l, const char* val)
+// _______________________________________________________________
+
+Node* find(Mylist* l, const char* val)
 {   
     Node* current = l->head;
     for (unsigned int i = 0; i <= l->size; i++){
@@ -57,15 +60,20 @@ char* find(Mylist* l, const char* val)
             return NULL;
         }
         if (strcmp(current->data,val) == 0)
-            return current->data;
+            return current;
 
         current = current->next;
     }
-        
-    return current->data;    
+                return NULL;
+}
+char* findValue(Mylist* l, const char* val)
+{   
+    Node* temp = find(l,val);
+    return temp->data ? temp->data : NULL;
 }
 
-char* getAt(Mylist* l, unsigned int index)
+
+Node* getByIndex(Mylist* l, unsigned int index)
 {
     Node* current = l->head;
     if (index > l->size){
@@ -80,9 +88,15 @@ char* getAt(Mylist* l, unsigned int index)
         current = current->next;
     }
         
-    return current->data;    
+    return current;    
+}
+char* getValueByIndex(Mylist* l, unsigned int index)
+{
+    Node* temp = getByIndex(l,index);
+    return temp->data ? temp->data : NULL;
 }
 
+// _______________________________________________________________
 
 bool isEmpty(Mylist* l)
 {

@@ -8,7 +8,6 @@ typedef struct
     Node* node;
 }iter;
 
-
 iter begin(Mylist* l)
 {
     iter it; 
@@ -21,6 +20,8 @@ iter begin(Mylist* l)
     return it;
 }
 
+// _______________________________________________________________
+
 iter* next(iter* it)
 {
     if (it == NULL || it->node == NULL) 
@@ -30,31 +31,36 @@ iter* next(iter* it)
 }
 char* nextvalue(iter* it)
 {
-    iter* temp = next(&it);
+    iter* temp = next(it);
     return temp->node->data ? temp->node->data : NULL;
 }
 
-bool hasNext(iter* it)
-{
-    return it->node->next != NULL;
-}
 
 char* get(iter* it)
 {
     return it->node->data;
 }
 
-void reset(iter* it, Mylist* l)
-{
-    if (l->head == NULL)
-        printf("[ERORR]headPointerIsNULL");
-    it->node->next = l->head;
-}
-
-
+// _______________________________________________________________
 
 bool equals(iter* it1, iter* it2)
 {
     return it1->node->data == it2->node->data ? true : false;
 }
+
+
+void reset(iter* it, Mylist* l)
+{
+    if (l->head == NULL)
+        printf("[ERORR]headPointerIsNULL");
+    it->node = l->head;
+}
+
+// _______________________________________________________________
+
+bool hasNext(iter* it)
+{
+    return it->node->next != NULL;
+}
+
 
