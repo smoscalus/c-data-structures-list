@@ -98,6 +98,19 @@ void tailpop(Mylist* l)
   
     l->size--;
 }
+// _______________________________________________________________
+
+void insert_at(Mylist* l,char* data,size_t index)
+{   
+    if (!l) return;
+    Node* current = l->head;
+    for (size_t i = 0; i < index; i++){
+        if(!current) return;
+        current = current->next;
+    }
+    
+    return;
+}   
 
 // _______________________________________________________________
 
@@ -139,7 +152,21 @@ char* getValueByIndex(Mylist* l, unsigned int index)
 }
 
 // _______________________________________________________________
+void print_list(Mylist* l)
+{
+    if (!l) return;
+    Node* current = l->head; 
+    while (current != NULL){
+        printf("%s", current->data);
+        current = current->next;
+    }
+}
 
+int size(Mylist* l)
+{
+    if (!l) return 0;
+    return l->size;
+}
 bool isEmpty(Mylist* l)
 {
     return l->head == NULL;
