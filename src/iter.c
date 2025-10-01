@@ -24,15 +24,16 @@ iter begin(Mylist* l)
 
 iter* next(iter* it)
 {
-    if (it == NULL || it->node == NULL) 
-        return NULL;
-    it->node = it->node->next;
-    return it;
+    if (it && it->node)
+        it->node = it->node->next;
 }
 char* nextvalue(iter* it)
 {
-    iter* temp = next(it);
-    return temp->node->data ? temp->node->data : NULL;
+    if (!it || !it->node || !it->node->next) return NULL;
+
+    iter temp = *it;
+    next(&temp);
+    return temp.node ? temp.node->data : NULL;
 }
 
 
