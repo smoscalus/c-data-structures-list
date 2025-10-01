@@ -9,12 +9,14 @@ typedef struct
     Node* node;
 }iter;
 
+// _______________________________________________________________
 
 iter begin(Mylist* l);
+iter end(Mylist* l);
 
 // _______________________________________________________________
 
-iter* next(iter* it);
+void next(iter* it);
 char* nextvalue(iter* it);
 
 char* get(iter* it);

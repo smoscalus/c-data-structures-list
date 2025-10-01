@@ -8,10 +8,18 @@ typedef struct
     Node* node;
 }iter;
 
+// _______________________________________________________________
+
 iter begin(Mylist* l)
 {
     iter it = { .node = NULL}; 
     if(l) it.node = l->head;
+    return it;
+}
+iter end(Mylist* l)
+{
+    iter it = { .node = NULL}; 
+    if(l) it.node = l->tail;
     return it;
 }
 
