@@ -3,8 +3,6 @@
 #include "string.h"
 #include <stdbool.h>
 
-#define ERROR_CHAR '\0'
-
 typedef struct Node{
     char* data;
     struct Node* next; 
@@ -30,7 +28,7 @@ Mylist createList()
 
 void headpush(Mylist* l,char* obj)
 {
-    Node* newNode = malloc(sizeof(newNode));
+    Node* newNode = malloc(sizeof(Node));
     newNode->data = obj;
     newNode->next = l->head;
     l->head = newNode;
@@ -40,9 +38,24 @@ void headpush(Mylist* l,char* obj)
 
     l->size += 1;
 }
+
+void headpop(Mylist* l)
+{
+    if (l->head == NULL){
+        printf("[ERROR]headPointerIsNULL");
+        return;
+    }
+
+    Node* temp = l->head;
+    l->head = l->head->next; 
+    free(temp);
+    
+    l->size--;
+}
+
 void tailpush(Mylist* l,char* obj)
 {
-    Node* newNode = malloc(sizeof(newNode));
+    Node* newNode = malloc(sizeof(Node));
     newNode->data = obj;
     newNode->next = NULL;
 
@@ -58,6 +71,7 @@ void tailpush(Mylist* l,char* obj)
     
     l->size += 1;
 }
+
 void tailpop(Mylist* l)
 {
     if (l->head == NULL){
@@ -81,21 +95,7 @@ void tailpop(Mylist* l)
         l->tail = temp;
         temp->next = NULL;
     }
-
-    
-    l->size--;
-}
-void headpop(Mylist* l)
-{
-    if (l->head == NULL){
-        printf("[ERROR]headPointerIsNULL");
-        return;
-    }
-
-    Node* temp = l->head;
-    l->head = l->head->next; 
-    free(temp);
-    
+  
     l->size--;
 }
 
@@ -104,37 +104,28 @@ void headpop(Mylist* l)
 Node* find(Mylist* l, const char* val)
 {   
     Node* current = l->head;
-    for (unsigned int i = 0; i <= l->size; i++){
-        if(current == NULL){
-            printf("[ERROR]headPointerIsNULL_incorrect_value");
-            return NULL;
-        }
+    while (current != NULL){
         if (strcmp(current->data,val) == 0)
             return current;
-
         current = current->next;
     }
-                return NULL;
+    return NULL;
 }
 char* findValue(Mylist* l, const char* val)
 {   
     Node* temp = find(l,val);
-    return temp->data ? temp->data : NULL;
+    if(!temp)return NULL;
+    return temp->data;
 }
 
 
 Node* getByIndex(Mylist* l, unsigned int index)
 {
     Node* current = l->head;
-    if (index > l->size){
-        printf("[ERROR]IndexMoreThanSize_incorrect_index");
-        return ERROR_CHAR;
-    }
+    if (index > l->size) return NULL;
+
     for (unsigned int i = 0; i < index; i++){
-        if(current == NULL){
-            printf("[ERROR]headPointerIsNULL_incorrect_index");
-            break;
-        }
+        if(current == NULL)break;
         current = current->next;
     }
         
@@ -143,7 +134,8 @@ Node* getByIndex(Mylist* l, unsigned int index)
 char* getValueByIndex(Mylist* l, unsigned int index)
 {
     Node* temp = getByIndex(l,index);
-    return temp->data ? temp->data : NULL;
+    if (!temp) return NULL;
+    return temp->data;
 }
 
 // _______________________________________________________________

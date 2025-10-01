@@ -1,7 +1,7 @@
-#include "stdio.h"
 #include "../include/list.h"
+#include <stdio.h>
 #include <stdbool.h>
-
+#include <string.h>
 
 typedef struct
 {
@@ -10,19 +10,14 @@ typedef struct
 
 iter begin(Mylist* l)
 {
-    iter it; 
-    if(l->head == NULL){
-        printf("[ERROR]headPointerIsNULL");
-        return it;
-    }
-    it.node = l->head;
-
+    iter it = { .node = NULL}; 
+    if(l) it.node = l->head;
     return it;
 }
 
 // _______________________________________________________________
 
-iter* next(iter* it)
+void next(iter* it)
 {
     if (it && it->node)
         it->node = it->node->next;
@@ -31,14 +26,14 @@ char* nextvalue(iter* it)
 {
     if (!it || !it->node || !it->node->next) return NULL;
 
-    iter temp = *it;
-    next(&temp);
-    return temp.node ? temp.node->data : NULL;
+    return it->node->next->data;
 }
-
 
 char* get(iter* it)
 {
+    if (!it || !it->node) return NULL;
+    
+
     return it->node->data;
 }
 
@@ -46,14 +41,21 @@ char* get(iter* it)
 
 bool equals(iter* it1, iter* it2)
 {
-    return it1->node->data == it2->node->data ? true : false;
+    if (!it1 || !it2 || !it1->node || !it2->node) return false;
+
+
+    return strcmp(it1->node->data,it2->node->data) == 0;
 }
 
 
 void reset(iter* it, Mylist* l)
 {
-    if (l->head == NULL)
-        printf("[ERORR]headPointerIsNULL");
+    if (!it) return;
+    
+    if (l->head == NULL){
+        printf("[ERORR]headPointerIsNULL\n");
+        return;
+    }
     it->node = l->head;
 }
 
@@ -61,7 +63,7 @@ void reset(iter* it, Mylist* l)
 
 bool hasNext(iter* it)
 {
-    return it->node->next != NULL;
+    return it && it->node && it->node->next != NULL;
 }
 
 
