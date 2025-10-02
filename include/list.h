@@ -22,6 +22,7 @@ void headpush(Mylist* l,char* obj);
 void headpop(Mylist* l);
 void tailpush(Mylist* l,char* obj);
 void tailpop(Mylist* l);
+
 // _______________________________________________________________
 
 Node* find(Mylist* l, const char* val);
@@ -30,9 +31,11 @@ char* findValue(Mylist* l, const char* val);
 
 Node* getByIndex(Mylist* l, unsigned int index);
 char* getValueByIndex(Mylist* l, unsigned int index);
+
 // _______________________________________________________________
 
 void insert_at(Mylist* l,char* data,size_t index);
+void erase_at(Mylist* l, size_t index);
 
 // _______________________________________________________________
 void print_list(Mylist* l);

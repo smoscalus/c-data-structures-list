@@ -133,7 +133,28 @@ void insert_at(Mylist* l,char* data,size_t index)
 
 void erase_at(Mylist* l, size_t index)
 {
+    if (!l) return;
 
+    if (index == 0){
+        headpop(l);
+        return;
+    }
+
+    if(index >= l->size){
+        printf("IncorrectIndex\n");
+        return;    
+    }
+
+    Node* current = l->head;
+    for (size_t i = 0; i < index - 1;i++){
+        if (!current) return;
+        current = current->next;
+    }
+    Node* temp = current->next->next;
+    free(current->next);
+    current->next = temp;
+
+    l->size--;
 }
 
 // _______________________________________________________________
