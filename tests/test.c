@@ -4,35 +4,53 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define TEST_EQ_STR(exp,act){\
+    if (strcmp(exp, act) != 0){\
+        printf("[FAIL] %s:%d: expected %s, got %s\n",  __FILE__, __LINE__, (exp), (act));\
+    }\
+    else { \
+        printf("[PASS] %s:%d\n", __FILE__, __LINE__); \
+    } \
+    }
+#define TEST_EQ_INT(exp,act){\
+    if (exp != act){\
+        printf("[FAIL] %s:%d: expected %d, got %d\n",  __FILE__, __LINE__, (exp), (act));\
+    }\
+    else { \
+        printf("[PASS] %s:%d\n", __FILE__, __LINE__); \
+    } \
+    }
+#define TEST_EQ_PTR(exp,act){\
+        if (exp != act){ \
+            printf ("[FAIL] %s:%d: expected %p, got %p\n",  __FILE__, __LINE__, (exp), (act));\
+        }\
+        else { \
+            printf("[PASS] %s:%d\n", __FILE__, __LINE__); \
+        } \
+    }
+#define N 10
+
+int TEST_HEAD_PUSH_POP()
+{
+    Mylist l = createList();
+    headpush(&l,"hello");
+    headpush(&l,"world");
+    char* arr = malloc(N);
+    headpop(&l, arr);
+    TEST_EQ_STR("world",arr);
+
+    headpop(&l, arr);
+    TEST_EQ_STR("hello",arr);
+
+    headpop(&l, arr);
+    TEST_EQ_PTR(NULL,arr);
+    return 1;
+}
+
 
 
 int main()
 {
-    Mylist l = createList();
-    headpush(&l,"hi");
-    headpush(&l,"priv");
-    headpush(&l,"wirld");
-    headpush(&l,"world");
-
-    iter i = begin(&l);
-    for (;hasNext(&i);next(&i)){
-        printf("%s \n",i.node->data);
-    }
-    printf("%s \n",get(&i));
-    reset(&i,&l);
-    printf("________________________\n");
-    printf("%s \n",get(&i));
-    printf("%s \n",nextvalue(&i)); 
-    printf("__________for______________\n");
-    int j = 0;
-    for(iter it = begin(&l);hasNext(&i);next(&i),j++){
-        for(iter it2 = begin(&l);hasNext(&i);next(&i))
-            if(equals(&it,&it2))
-                printf("%s \n",it.node->data);
-        printf("%d",j);
-    }
-
-               
-    printf("________________________\n");
+    printf("%d",TEST_HEAD_PUSH_POP());
     return 1;
 }
