@@ -103,14 +103,38 @@ void tailpop(Mylist* l)
 void insert_at(Mylist* l,char* data,size_t index)
 {   
     if (!l) return;
+
+    if (index == 0){
+        headpush(l,data);
+        return;
+    }
+
+    if(index > l->size){
+        printf("IncorrectIndex");
+        return;    
+    }
+
     Node* current = l->head;
-    for (size_t i = 0; i < index; i++){
+    for (size_t i = 0; i < index - 1; i++){
         if(!current) return;
+    
         current = current->next;
     }
-    
-    return;
+
+    Node* newnode = malloc(sizeof(Node));
+    if(!newnode) return;
+
+    newnode->data = data;
+    newnode->next = current->next;
+    current->next = newnode;
+
+    l->size += 1;
 }   
+
+void erase_at(Mylist* l, size_t index)
+{
+
+}
 
 // _______________________________________________________________
 
