@@ -20,6 +20,8 @@ Mylist createList();
 
 void headpush(Mylist* l,char* obj);
 void headpop(Mylist* l);
+
+
 void tailpush(Mylist* l,char* obj);
 void tailpop(Mylist* l);
 
@@ -38,8 +40,13 @@ void insert_at(Mylist* l,char* data,size_t index);
 void erase_at(Mylist* l, size_t index);
 
 // _______________________________________________________________
+
 void print_list(Mylist* l);
 int size(Mylist* l);
 bool isEmpty(Mylist* l);
+
+// _______________________________________________________________
+
+void freelist(Mylist* l);
 
 #endif

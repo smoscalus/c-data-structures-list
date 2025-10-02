@@ -197,6 +197,7 @@ char* getValueByIndex(Mylist* l, unsigned int index)
 }
 
 // _______________________________________________________________
+
 void print_list(Mylist* l)
 {
     if (!l) return;
@@ -215,4 +216,22 @@ int size(Mylist* l)
 bool isEmpty(Mylist* l)
 {
     return l->head == NULL;
+}
+
+// _______________________________________________________________
+
+void freelist(Mylist* l)
+{
+    if (!l) return;
+
+    Node* temp;
+    while (l->head){
+        temp = l->head;
+        l->head = l->head->next;
+           
+        free(temp);
+    }
+
+    l->head = NULL;
+    l->size = 0;
 }
