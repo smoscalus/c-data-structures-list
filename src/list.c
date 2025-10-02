@@ -39,17 +39,20 @@ void headpush(Mylist* l,char* obj)
     l->size += 1;
 }
 
-void headpop(Mylist* l)
-{
-    if (l->head == NULL){
-        printf("[ERROR]headPointerIsNULL");
+void headpop(Mylist* l,char* out)
+{   
+    Node* temp = l->head;
+    if (!temp) {
+        out = NULL;
         return;
     }
 
-    Node* temp = l->head;
+    if (out)
+        strcpy(out,temp->data);
+        
     l->head = l->head->next; 
     free(temp);
-    
+
     l->size--;
 }
 
@@ -136,7 +139,7 @@ void erase_at(Mylist* l, size_t index)
     if (!l) return;
 
     if (index == 0){
-        headpop(l);
+        headpop(l,NULL);
         return;
     }
 

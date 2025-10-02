@@ -2,6 +2,7 @@
 #define LIST_H
 
 #include <stdbool.h>
+#include <stdio.h>
 
 typedef struct Node{
     char* data;
@@ -19,7 +20,7 @@ Mylist createList();
 // _______________________________________________________________
 
 void headpush(Mylist* l,char* obj);
-void headpop(Mylist* l);
+void headpop(Mylist* l,char* out);
 
 
 void tailpush(Mylist* l,char* obj);
