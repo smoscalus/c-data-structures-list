@@ -19,12 +19,12 @@ typedef struct
 Mylist createList();
 // _______________________________________________________________
 
-void headpush(Mylist* l,char* obj);
+void headpush(Mylist* l,char* out);
 void headpop(Mylist* l,char* out);
 
 
-void tailpush(Mylist* l,char* obj);
-void tailpop(Mylist* l);
+void tailpush(Mylist* l,char* out);
+void tailpop(Mylist* l,char* out);
 
 // _______________________________________________________________
 
@@ -38,7 +38,7 @@ char* getValueByIndex(Mylist* l, unsigned int index);
 // _______________________________________________________________
 
 void insert_at(Mylist* l,char* data,size_t index);
-void erase_at(Mylist* l, size_t index);
+void erase_at(Mylist* l,char* out, size_t index);
 
 // _______________________________________________________________
 
