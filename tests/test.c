@@ -33,21 +33,28 @@
     }
 
 #define N 10
-
-int TEST_HEAD_PUSH_POP()
+Mylist init_TEST_LIST()
 {
     Mylist l = createList();
+    headpush(&l,"hi");
     headpush(&l,"hello");
+    headpush(&l,"by");
     headpush(&l,"world");
+    return l;
+}
+int TEST_HEAD_PUSH_POP()
+{
+    Mylist l = init_TEST_LIST();
     char arrr[N];
     headpop(&l, arrr);
     TEST_EQ_STR("world",arrr);
 
     headpop(&l, arrr);
-    TEST_EQ_STR("hello",arrr);
+    TEST_EQ_STR("by",arrr);
 
     headpop(&l, arrr);
 
+    freelist(&l);
     return 0;
 }
 int TEST_TAIL_PUSH_POP()
@@ -64,17 +71,14 @@ int TEST_TAIL_PUSH_POP()
     TEST_EQ_STR("hello",arr);
 
     tailpop(&l, arr);
-    
+
+    freelist(&l);
     return 0;
 }
 int TEST_INSERT_AT()
 {
-    Mylist l = createList();
-    headpush(&l,"hi");
-    headpush(&l,"hello");
-    headpush(&l,"by");
-    headpush(&l,"world");
-    
+    Mylist l = init_TEST_LIST();
+
     char out[N]; 
     insert_at(&l,"hello",2);    
     erase_at(&l,out,3);
@@ -85,16 +89,12 @@ int TEST_INSERT_AT()
 
     erase_at(&l,out,5);
 
-
+    freelist(&l);
     return 0;
 }
 int TEST_FIDN_FINDVALUE()
 {
-    Mylist l = createList();
-    headpush(&l,"hi");
-    headpush(&l,"hello");
-    headpush(&l,"by");
-    headpush(&l,"world");
+    Mylist l = init_TEST_LIST();
 
     Node* temp = find(&l,"hello");
     TEST_EQ_STR("hello",temp->data);
@@ -105,15 +105,12 @@ int TEST_FIDN_FINDVALUE()
     res = findValue(&l,"hedo");
     TEST_EQ_PTR(NULL,res);
 
+    freelist(&l);
     return 0;
 }
 int TEST_GETVALUEBY_GETBY_INDEX()
 {
-    Mylist l = createList();
-    headpush(&l,"hi");
-    headpush(&l,"hello");
-    headpush(&l,"by");
-    headpush(&l,"world");
+    Mylist l = init_TEST_LIST();
 
     Node* temp = getByIndex(&l,2);     
     TEST_EQ_STR("hello",temp->data);
@@ -124,6 +121,16 @@ int TEST_GETVALUEBY_GETBY_INDEX()
     res = getValueByIndex(&l,5);
     TEST_EQ_PTR(NULL,res);
 
+    freelist(&l);
+    return 0;
+}
+int TEST_SIZE()
+{
+    Mylist l = init_TEST_LIST();
+
+    TEST_EQ_INT(4,l.size);
+
+    freelist(&l);
     return 0;
 }
 
@@ -135,6 +142,7 @@ int main()
        alltest += TEST_INSERT_AT();
        alltest += TEST_FIDN_FINDVALUE();
        alltest += TEST_GETVALUEBY_GETBY_INDEX();
+       alltest += TEST_SIZE();
 
     printf("%d/5 didn't pass the tests",alltest);
     return 1;
