@@ -50,12 +50,29 @@ int TEST_HEAD_PUSH_POP()
 
     return 0;
 }
+int TEST_TAIL_PUSH_POP()
+{
+    Mylist l = createList();
+    tailpush(&l,"hello");
+    tailpush(&l,"world");
+
+    char arr[N];
+    tailpop(&l, arr);
+    TEST_EQ_STR("world",arr);
+
+    tailpop(&l, arr);
+    TEST_EQ_STR("hello",arr);
+
+    tailpop(&l, arr);
+    
+    return 0;
+}
 
 int main()
 {   
     unsigned int alltest = 0;
        alltest += TEST_HEAD_PUSH_POP();
-
+       alltest += TEST_TAIL_PUSH_POP();
 
     printf("%d/5 didn't pass the tests",alltest);
     return 1;
