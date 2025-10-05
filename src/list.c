@@ -26,10 +26,10 @@ Mylist createList()
 
 // _______________________________________________________________
 
-void headpush(Mylist* l,char* obj)
+void headpush(Mylist* l,char* out)
 {
     Node* newNode = malloc(sizeof(Node));
-    newNode->data = obj;
+    newNode->data = out;
     newNode->next = l->head;
     l->head = newNode;
 
@@ -38,12 +38,11 @@ void headpush(Mylist* l,char* obj)
 
     l->size += 1;
 }
-
 void headpop(Mylist* l,char* out)
 {   
     Node* temp = l->head;
     if (!temp) {
-        out = NULL;
+        printf("[Warning]headPointerIsNULL\n");
         return;
     }
 
@@ -56,10 +55,10 @@ void headpop(Mylist* l,char* out)
     l->size--;
 }
 
-void tailpush(Mylist* l,char* obj)
+void tailpush(Mylist* l,char* out)
 {
     Node* newNode = malloc(sizeof(Node));
-    newNode->data = obj;
+    newNode->data = out;
     newNode->next = NULL;
 
     if (l->head == NULL){
@@ -74,17 +73,17 @@ void tailpush(Mylist* l,char* obj)
     
     l->size += 1;
 }
-
-void tailpop(Mylist* l)
+void tailpop(Mylist* l,char* out)
 {
     if (l->head == NULL){
-        printf("[ERROR]tailPointerIsNULL");
+        printf("[Warning]headPointerIsNULL\n");
         return;
     }
+    if(out)
+        strcpy(out,l->tail->data);
 
     if (l->head == l->tail){
-        Node* temp = l->head;
-        free(temp);
+        free(l->head);
         l->head = NULL;
         l->tail = NULL;
     }
@@ -103,7 +102,7 @@ void tailpop(Mylist* l)
 }
 // _______________________________________________________________
 
-void insert_at(Mylist* l,char* data,size_t index)
+void insert_at(Mylist* l,char* data, size_t index)
 {   
     if (!l) return;
 
@@ -133,13 +132,12 @@ void insert_at(Mylist* l,char* data,size_t index)
 
     l->size += 1;
 }   
-
-void erase_at(Mylist* l, size_t index)
+void erase_at(Mylist* l,char* out, size_t index)
 {
     if (!l) return;
 
     if (index == 0){
-        headpop(l,NULL);
+        headpop(l,out);
         return;
     }
 
@@ -154,6 +152,10 @@ void erase_at(Mylist* l, size_t index)
         current = current->next;
     }
     Node* temp = current->next->next;
+
+    if (out)
+        strcpy(out,current->next->data);
+
     free(current->next);
     current->next = temp;
 
