@@ -88,7 +88,25 @@ int TEST_INSERT_AT()
 
     return 0;
 }
+int TEST_FIDN_FINDVALUE()
+{
+    Mylist l = createList();
+    headpush(&l,"hi");
+    headpush(&l,"hello");
+    headpush(&l,"by");
+    headpush(&l,"world");
 
+    Node* temp = find(&l,"hello");
+    TEST_EQ_STR("hello",temp->data);
+
+    char* res = findValue(&l,"hello");
+    TEST_EQ_STR("hello",res);
+
+    res = findValue(&l,"hedo");
+    TEST_EQ_PTR(NULL,res);
+
+    return 0;
+}
 
 int main()
 {   
@@ -96,6 +114,7 @@ int main()
        alltest += TEST_HEAD_PUSH_POP();
        alltest += TEST_TAIL_PUSH_POP();
        alltest += TEST_INSERT_AT();
+       alltest += TEST_FIDN_FINDVALUE();
        
     printf("%d/5 didn't pass the tests",alltest);
     return 1;
