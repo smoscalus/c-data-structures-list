@@ -67,13 +67,36 @@ int TEST_TAIL_PUSH_POP()
     
     return 0;
 }
+int TEST_INSERT_AT()
+{
+    Mylist l = createList();
+    headpush(&l,"hi");
+    headpush(&l,"hello");
+    headpush(&l,"by");
+    headpush(&l,"world");
+    
+    char out[N]; 
+    insert_at(&l,"hello",2);    
+    erase_at(&l,out,3);
+    TEST_EQ_STR("hello",out);
+
+    erase_at(&l,out,3);
+    TEST_EQ_STR("hi",out);
+
+    erase_at(&l,out,5);
+
+
+    return 0;
+}
+
 
 int main()
 {   
     unsigned int alltest = 0;
        alltest += TEST_HEAD_PUSH_POP();
        alltest += TEST_TAIL_PUSH_POP();
-
+       alltest += TEST_INSERT_AT();
+       
     printf("%d/5 didn't pass the tests",alltest);
     return 1;
 }
