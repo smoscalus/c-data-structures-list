@@ -7,6 +7,7 @@
 #define TEST_EQ_STR(exp,act){\
     if (strcmp(exp, act) != 0){\
         printf("[FAIL] %s:%d: expected %s, got %s\n",  __FILE__, __LINE__, (exp), (act));\
+        return 1;\
     }\
     else { \
         printf("[PASS] %s:%d\n", __FILE__, __LINE__); \
@@ -15,6 +16,7 @@
 #define TEST_EQ_INT(exp,act){\
     if (exp != act){\
         printf("[FAIL] %s:%d: expected %d, got %d\n",  __FILE__, __LINE__, (exp), (act));\
+        return 1;\
     }\
     else { \
         printf("[PASS] %s:%d\n", __FILE__, __LINE__); \
@@ -23,11 +25,13 @@
 #define TEST_EQ_PTR(exp,act){\
         if (exp != act){ \
             printf ("[FAIL] %s:%d: expected %p, got %p\n",  __FILE__, __LINE__, (exp), (act));\
+            return 1;\
         }\
         else { \
             printf("[PASS] %s:%d\n", __FILE__, __LINE__); \
         } \
     }
+
 #define N 10
 
 int TEST_HEAD_PUSH_POP()
@@ -35,22 +39,24 @@ int TEST_HEAD_PUSH_POP()
     Mylist l = createList();
     headpush(&l,"hello");
     headpush(&l,"world");
-    char* arr = malloc(N);
-    headpop(&l, arr);
-    TEST_EQ_STR("world",arr);
+    char arrr[N];
+    headpop(&l, arrr);
+    TEST_EQ_STR("world",arrr);
 
-    headpop(&l, arr);
-    TEST_EQ_STR("hello",arr);
+    headpop(&l, arrr);
+    TEST_EQ_STR("hello",arrr);
 
-    headpop(&l, arr);
-    TEST_EQ_PTR(NULL,arr);
-    return 1;
+    headpop(&l, arrr);
+
+    return 0;
 }
 
-
-
 int main()
-{
-    printf("%d",TEST_HEAD_PUSH_POP());
+{   
+    unsigned int alltest = 0;
+       alltest += TEST_HEAD_PUSH_POP();
+
+
+    printf("%d/5 didn't pass the tests",alltest);
     return 1;
 }
