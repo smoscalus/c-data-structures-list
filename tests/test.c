@@ -107,6 +107,25 @@ int TEST_FIDN_FINDVALUE()
 
     return 0;
 }
+int TEST_GETVALUEBY_GETBY_INDEX()
+{
+    Mylist l = createList();
+    headpush(&l,"hi");
+    headpush(&l,"hello");
+    headpush(&l,"by");
+    headpush(&l,"world");
+
+    Node* temp = getByIndex(&l,2);     
+    TEST_EQ_STR("hello",temp->data);
+
+    char* res = getValueByIndex(&l,2);
+    TEST_EQ_STR("hello",res);
+
+    res = getValueByIndex(&l,5);
+    TEST_EQ_PTR(NULL,res);
+
+    return 0;
+}
 
 int main()
 {   
@@ -115,7 +134,8 @@ int main()
        alltest += TEST_TAIL_PUSH_POP();
        alltest += TEST_INSERT_AT();
        alltest += TEST_FIDN_FINDVALUE();
-       
+       alltest += TEST_GETVALUEBY_GETBY_INDEX();
+
     printf("%d/5 didn't pass the tests",alltest);
     return 1;
 }
