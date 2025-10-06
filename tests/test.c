@@ -151,6 +151,14 @@ int TEST_ISEMPTY()
 
     return 0;
 }
+int TEST_FREELIST()
+{
+    Mylist l = init_TEST_LIST();
+    freelist(&l);
+    TEST_EQ_PTR(NULL,l.head);
+
+    return 0;
+}
 
 
 int main()
@@ -163,7 +171,8 @@ int main()
        alltest += TEST_GETVALUEBY_GETBY_INDEX();
        alltest += TEST_SIZE();
        alltest += TEST_ISEMPTY();
-   
-    printf("%d/7 didn't pass the tests", alltest);
+       alltest += TEST_FREELIST();
+    
+    printf("%d/8 didn't pass the tests", alltest);
     return 1;
 }
