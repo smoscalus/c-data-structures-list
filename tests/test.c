@@ -32,7 +32,10 @@
         } \
     }
 
+
 #define N 10
+
+
 Mylist init_TEST_LIST()
 {
     Mylist l = createList();
@@ -42,6 +45,8 @@ Mylist init_TEST_LIST()
     headpush(&l,"world");
     return l;
 }
+
+
 int TEST_HEAD_PUSH_POP()
 {
     Mylist l = init_TEST_LIST();
@@ -59,7 +64,7 @@ int TEST_HEAD_PUSH_POP()
 }
 int TEST_TAIL_PUSH_POP()
 {
-    Mylist l = createList();
+    Mylist l = init_TEST_LIST();
     tailpush(&l,"hello");
     tailpush(&l,"world");
 
@@ -87,6 +92,7 @@ int TEST_INSERT_AT()
     erase_at(&l,out,3);
     TEST_EQ_STR("hi",out);
 
+    printf("___Here_must_be_Error___\n");
     erase_at(&l,out,5);
 
     freelist(&l);
@@ -133,6 +139,19 @@ int TEST_SIZE()
     freelist(&l);
     return 0;
 }
+int TEST_ISEMPTY()
+{
+    Mylist l = createList();
+    int res = isEmpty(&l);
+    TEST_EQ_INT(1,res);
+
+    Mylist l1 = init_TEST_LIST();
+    res = isEmpty(&l1);
+    TEST_EQ_INT(0,res);
+
+    return 0;
+}
+
 
 int main()
 {   
@@ -143,7 +162,8 @@ int main()
        alltest += TEST_FIDN_FINDVALUE();
        alltest += TEST_GETVALUEBY_GETBY_INDEX();
        alltest += TEST_SIZE();
-
-    printf("%d/5 didn't pass the tests",alltest);
+       alltest += TEST_ISEMPTY();
+   
+    printf("%d/7 didn't pass the tests", alltest);
     return 1;
 }
