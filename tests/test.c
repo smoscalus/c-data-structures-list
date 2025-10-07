@@ -176,7 +176,7 @@ int TEST_FREELIST()
 
 /**
  * @defgroup iter_tests Iterator Tests
- * @brief Contains tests for list.c
+ * @brief Contains tests for iter.c
  * 
  * NOT all functions are convered, but only the most used ones.   
  * 
@@ -345,29 +345,32 @@ int TEST_ALL_FUNC()
 enum init_list_iter
 {
     TEST_LIST = 16,
-    TEST_ITER,
-    TEST_ALL
+    TEST_ITER = 10,
+    TEST_ALL = 26
 };
 
 void PRINT_TESTS(int alltest, enum init_list_iter head)
 {
-    printf("%d/%d didn't pass the tests", alltest, head);
+    printf("%d/%d tests failed", alltest, head);
 }
 
 int main()
 {   
-    enum init_list_iter head = TEST_ITER;
+    enum init_list_iter head = TEST_ALL;
     unsigned int alltest = 0;
     switch (head)
     {
     case   TEST_LIST:
         alltest += TEST_LIST_FUNC();
+        PRINT_TESTS(alltest,TEST_LIST);
         break;
     case   TEST_ITER:
         alltest += TEST_ITER_FUNC();
+        PRINT_TESTS(alltest,TEST_ITER);
         break;    
     case   TEST_ALL:
         alltest += TEST_ALL_FUNC();
+        PRINT_TESTS(alltest,TEST_ALL);
         break; 
     }
 
