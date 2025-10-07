@@ -243,6 +243,76 @@ int TEST_FREELIST()
         TEST_EQ_STR(res,l.head->next->data);
         return 0;
     }
+    int TEST_GET()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
+        headpush(&l,"world");
+        iter i = begin(&l);
+        char* res = get(&i);
+        TEST_EQ_STR(res,l.head->data);
+        return 0;
+
+    }
+    int TEST_RESET()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
+        headpush(&l,"world");
+        iter i = begin(&l);
+        next(&i);
+        reset(&i,&l);
+        TEST_EQ_PTR(i.node,l.head);
+
+        return 0;
+    }
+    int TEST_EQUALS_FALSE()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
+        headpush(&l,"world");
+        iter i = begin(&l);
+        iter j = end(&l);
+
+        int res = equals(&i,&j);
+        TEST_EQ_INT(0,res);
+
+        return 0;
+    }
+    int TEST_EQUALS_TRUE()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
+        headpush(&l,"world");
+        iter i = begin(&l);
+        iter j = begin(&l);
+        bool res = equals(&i,&j);
+        TEST_EQ_INT(1,res);
+
+        return 0;
+    }
+    int TEST_HASNEXT_TRUE()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
+        headpush(&l,"world");
+        iter i = begin(&l);
+        int res = hasNext(&i);
+        TEST_EQ_INT(1,res);
+
+        return 0;
+    }
+    int TEST_HASNEXT_FALSE()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
+        iter i = begin(&l);
+        int res = hasNext(&i);
+        TEST_EQ_INT(0,res);
+
+        return 0;
+    }
+
 /** @} */ // end of iter_tests
 
 
@@ -266,9 +336,15 @@ int TEST_ITER_FUNC()
     alltest += TEST_END();
     alltest += TEST_NEXT();
     alltest += TEST_NEXT_VALUE();
-
+    alltest += TEST_GET();
+    alltest += TEST_RESET();
+    alltest += TEST_EQUALS_FALSE();
+    alltest += TEST_EQUALS_TRUE();
+    alltest += TEST_HASNEXT_TRUE();
+    alltest += TEST_HASNEXT_FALSE();
     return alltest;
 }
+
 int main()
 {   
     enum init_list_iter head = TEST_ITER;
