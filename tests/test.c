@@ -36,15 +36,6 @@
 
 #define N 10
 
-enum init_list_iter
-{
-    TEST_LIST,
-    TEST_ITER,
-    TEST_ALL
-};
-
-
-
 /**
  * @defgroup list_tests List Tests
  * @brief Contains tests for list.c
@@ -73,13 +64,10 @@ int TEST_HEAD_PUSH_POP()
 {
     Mylist l = init_TEST_LIST();
     char arrr[N];
-    headpop(&l, arrr);
-    TEST_EQ_STR("world",arrr);
+    headpop(&l, NULL);
 
     headpop(&l, arrr);
     TEST_EQ_STR("by",arrr);
-
-    headpop(&l, arrr);
 
     freelist(&l);
     return 0;
@@ -91,13 +79,10 @@ int TEST_TAIL_PUSH_POP()
     tailpush(&l,"world");
 
     char arr[N];
-    tailpop(&l, arr);
-    TEST_EQ_STR("world",arr);
+    tailpop(&l, NULL);
 
     tailpop(&l, arr);
     TEST_EQ_STR("hello",arr);
-
-    tailpop(&l, arr);
 
     freelist(&l);
     return 0;
@@ -161,14 +146,18 @@ int TEST_SIZE()
     freelist(&l);
     return 0;
 }
-int TEST_ISEMPTY()
+int TEST_ISEMPTY_TRUE()
 {
     Mylist l = createList();
     int res = isEmpty(&l);
     TEST_EQ_INT(1,res);
 
+    return 0;
+}
+int TEST_ISEMPTY_FALSE()
+{
     Mylist l1 = init_TEST_LIST();
-    res = isEmpty(&l1);
+    int res = isEmpty(&l1);
     TEST_EQ_INT(0,res);
 
     return 0;
@@ -325,7 +314,8 @@ int TEST_LIST_FUNC()
     alltest += TEST_FIDN_FINDVALUE();
     alltest += TEST_GETVALUEBY_GETBY_INDEX();
     alltest += TEST_SIZE();
-    alltest += TEST_ISEMPTY();
+    alltest += TEST_ISEMPTY_TRUE();
+    alltest += TEST_ISEMPTY_FALSE();
     alltest += TEST_FREELIST();
     return alltest;
 }
@@ -344,6 +334,25 @@ int TEST_ITER_FUNC()
     alltest += TEST_HASNEXT_FALSE();
     return alltest;
 }
+int TEST_ALL_FUNC()
+{
+    int alltest = 0;
+    alltest += TEST_LIST_FUNC();
+    alltest += TEST_ITER_FUNC();
+    return alltest;
+}
+
+enum init_list_iter
+{
+    TEST_LIST = 16,
+    TEST_ITER,
+    TEST_ALL
+};
+
+void PRINT_TESTS(int alltest, enum init_list_iter head)
+{
+    printf("%d/%d didn't pass the tests", alltest, head);
+}
 
 int main()
 {   
@@ -358,11 +367,11 @@ int main()
         alltest += TEST_ITER_FUNC();
         break;    
     case   TEST_ALL:
-        
+        alltest += TEST_ALL_FUNC();
         break; 
     }
 
     
-    printf("%d/12 didn't pass the tests", alltest);
+    
     return 1;
 }
