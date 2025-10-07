@@ -13,6 +13,7 @@
         printf("[PASS] %s:%d\n", __FILE__, __LINE__); \
     } \
     }
+
 #define TEST_EQ_INT(exp,act){\
     if (exp != act){\
         printf("[FAIL] %s:%d: expected %d, got %d\n",  __FILE__, __LINE__, (exp), (act));\
@@ -22,6 +23,7 @@
         printf("[PASS] %s:%d\n", __FILE__, __LINE__); \
     } \
     }
+
 #define TEST_EQ_PTR(exp,act){\
         if (exp != act){ \
             printf ("[FAIL] %s:%d: expected %p, got %p\n",  __FILE__, __LINE__, (exp), (act));\
@@ -32,10 +34,31 @@
         } \
     }
 
-
 #define N 10
 
+enum init_list_iter
+{
+    TEST_LIST,
+    TEST_ITER,
+    TEST_ALL
+};
 
+
+
+/**
+ * @defgroup list_tests List Tests
+ * @brief Contains tests for list.c
+ * 
+ * NOT all functions are convered, but only the most used ones.   
+ * 
+ * To start this test use:
+ *      enum init_list_iter TEST_LIST param
+ *          or
+ *      enum init_list_iter TEST_ALL param
+ * 
+ * These functions test core list operations.
+ * @{
+ */
 Mylist init_TEST_LIST()
 {
     Mylist l = createList();
@@ -45,7 +68,6 @@ Mylist init_TEST_LIST()
     headpush(&l,"world");
     return l;
 }
-
 
 int TEST_HEAD_PUSH_POP()
 {
@@ -160,18 +182,59 @@ int TEST_FREELIST()
     return 0;
 }
 
+/** @} */ // end of list_tests
 
+
+/**
+ * @defgroup iter_tests Iterator Tests
+ * @brief Contains tests for list.c
+ * 
+ * NOT all functions are convered, but only the most used ones.   
+ * 
+ * To start this test use:
+ *      enum init_list_iter TEST_ITER param
+ *          or
+ *      enum init_list_iter TEST_ALL param
+ * 
+ * These functions test core list operations.
+ * @{
+ */
+
+/* ... */
+
+/** @} */ // end of iter_tests
+
+
+int TEST_LIST_FUNC()
+{
+    int alltest = 0;
+    alltest += TEST_HEAD_PUSH_POP();
+    alltest += TEST_TAIL_PUSH_POP();
+    alltest += TEST_INSERT_AT();
+    alltest += TEST_FIDN_FINDVALUE();
+    alltest += TEST_GETVALUEBY_GETBY_INDEX();
+    alltest += TEST_SIZE();
+    alltest += TEST_ISEMPTY();
+    alltest += TEST_FREELIST();
+    return alltest;
+}
 int main()
 {   
+    enum init_list_iter head = TEST_LIST;
     unsigned int alltest = 0;
-       alltest += TEST_HEAD_PUSH_POP();
-       alltest += TEST_TAIL_PUSH_POP();
-       alltest += TEST_INSERT_AT();
-       alltest += TEST_FIDN_FINDVALUE();
-       alltest += TEST_GETVALUEBY_GETBY_INDEX();
-       alltest += TEST_SIZE();
-       alltest += TEST_ISEMPTY();
-       alltest += TEST_FREELIST();
+    switch (head)
+    {
+    case   TEST_LIST:
+        alltest = TEST_LIST_FUNC();
+        break;
+    case   TEST_ITER:
+        
+        break;    
+    case   TEST_ALL:
+        
+        break; 
+    }
+
     
     printf("%d/8 didn't pass the tests", alltest);
     return 1;
