@@ -199,8 +199,30 @@ int TEST_FREELIST()
  * These functions test core list operations.
  * @{
  */
+    int TEST_BEGIN()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
 
-/* ... */
+        iter i = begin(&l);
+
+        TEST_EQ_PTR(l.head,i.node); 
+
+        return 0;
+    }
+    int TEST_END()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
+        headpush(&l,"world");
+        
+        iter i = end(&l);
+
+        TEST_EQ_PTR(l.tail,i.node); 
+
+        return 0;
+    }
+
 
 /** @} */ // end of iter_tests
 
@@ -218,17 +240,25 @@ int TEST_LIST_FUNC()
     alltest += TEST_FREELIST();
     return alltest;
 }
+int TEST_ITER_FUNC()
+{
+    int alltest = 0;
+    alltest += TEST_BEGIN();
+    alltest += TEST_END();
+
+    return alltest;
+}
 int main()
 {   
-    enum init_list_iter head = TEST_LIST;
+    enum init_list_iter head = TEST_ITER;
     unsigned int alltest = 0;
     switch (head)
     {
     case   TEST_LIST:
-        alltest = TEST_LIST_FUNC();
+        alltest += TEST_LIST_FUNC();
         break;
     case   TEST_ITER:
-        
+        alltest += TEST_ITER_FUNC();
         break;    
     case   TEST_ALL:
         
@@ -236,6 +266,6 @@ int main()
     }
 
     
-    printf("%d/8 didn't pass the tests", alltest);
+    printf("%d/10 didn't pass the tests", alltest);
     return 1;
 }
