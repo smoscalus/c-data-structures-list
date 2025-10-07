@@ -222,8 +222,27 @@ int TEST_FREELIST()
 
         return 0;
     }
-
-
+    int TEST_NEXT()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
+        headpush(&l,"world");
+        iter i = begin(&l);
+        next(&i);
+        
+        TEST_EQ_PTR(l.head->next,i.node);
+        return 0;
+    }
+    int TEST_NEXT_VALUE()
+    {
+        Mylist l = createList();
+        headpush(&l,"hi");
+        headpush(&l,"world");
+        iter i = begin(&l);
+        char* res = nextvalue(&i);
+        TEST_EQ_STR(res,l.head->next->data);
+        return 0;
+    }
 /** @} */ // end of iter_tests
 
 
@@ -245,6 +264,8 @@ int TEST_ITER_FUNC()
     int alltest = 0;
     alltest += TEST_BEGIN();
     alltest += TEST_END();
+    alltest += TEST_NEXT();
+    alltest += TEST_NEXT_VALUE();
 
     return alltest;
 }
@@ -266,6 +287,6 @@ int main()
     }
 
     
-    printf("%d/10 didn't pass the tests", alltest);
+    printf("%d/12 didn't pass the tests", alltest);
     return 1;
 }
