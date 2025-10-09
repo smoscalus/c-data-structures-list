@@ -34,7 +34,7 @@ iter begin(Mylist* l);
  * @param l pointer on the list.
  * @return Iterator pointing to the last node, or NULL if the list is uninitialized.
  *
- * @note this func behaves the same as @ref begin() but feturns the last node instead of the first. 
+ * @note this func behaves the same as @ref begin() but returns the last node instead of the first. 
  * @example
  * Mylist l = createList();
  * headpush(&l,"hi");
@@ -138,7 +138,7 @@ void reset(iter* it, Mylist* l);
  * @param it1 pointer to the second iterator.
  * @return true(1) if the iterators are equal, or false(0) if they are not equal 
  * 
- * @note return false if once of the iterators is uninitialized.
+ * @note return false if one of the iterators is uninitialized.
  * 
  * @example
  * Mylist l = createList();
