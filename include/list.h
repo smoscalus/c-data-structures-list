@@ -19,11 +19,11 @@ typedef struct
 Mylist createList();
 // _______________________________________________________________
 
-void headpush(Mylist* l,char* out);
+void headpush(Mylist* l,char* data);
 void headpop(Mylist* l,char* out);
 
 
-void tailpush(Mylist* l,char* out);
+void tailpush(Mylist* l,char* data);
 void tailpop(Mylist* l,char* out);
 
 // _______________________________________________________________

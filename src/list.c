@@ -26,10 +26,10 @@ Mylist createList()
 
 // _______________________________________________________________
 
-void headpush(Mylist* l,char* out)
+void headpush(Mylist* l,char* data)
 {
     Node* newNode = malloc(sizeof(Node));
-    newNode->data = out;
+    newNode->data = data;
     newNode->next = l->head;
     l->head = newNode;
 
@@ -55,10 +55,10 @@ void headpop(Mylist* l,char* out)
     l->size--;
 }
 
-void tailpush(Mylist* l,char* out)
+void tailpush(Mylist* l,char* data)
 {
     Node* newNode = malloc(sizeof(Node));
-    newNode->data = out;
+    newNode->data = data;
     newNode->next = NULL;
 
     if (l->head == NULL){
