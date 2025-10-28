@@ -17,8 +17,19 @@ typedef struct
 }Mylist;
 
 Mylist createList();
-// _______________________________________________________________
-
+/**
+ * @brief Adds an element to the front of the list.
+ *
+ * This function prepends the given string to the list.
+ *
+ * @param l pointer on the list.
+ * @param data String to add to the list.
+ * 
+ *
+ * @example
+ * Mylist l = createList();
+ * headpush(&l,"hi"); // now the head of the list contains "hi" 
+ */
 void headpush(Mylist* l,char* data);
 void headpop(Mylist* l,char* out);
 
