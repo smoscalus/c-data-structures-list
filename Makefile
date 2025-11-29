@@ -1,27 +1,68 @@
+# Compiler
 CC = gcc
-CFLAGS = -Wall -Wextra -g -Iinclude
 
-# default target
-all: list.exe
+# Directories
+SRC_DIR = src
+INC_DIR = include
+TEST_DIR = tests
+BUILD_DIR = build
 
-# compile object file for list
-iter.o: src/iter.c include/iter.h include/list.h
-	$(CC) $(CFLAGS) -c src/iter.c -o iter.o
+# Common compile flags
+CFLAGS = -Wall -Wextra -g -I$(INC_DIR)
 
-# build test executable
-list.o: src/list.c include/list.h 
-	$(CC) $(CFLAGS) -c src/list.c -o list.o
+# Detect OS
+ifeq ($(OS),Windows_NT)
+    # ---- WINDOWS SETTINGS ----
+    DLL_EXT = dll
+    EXE_EXT = exe
+    RM = del /Q
+    OUT = $(BUILD_DIR)/app.$(EXE_EXT)
+    DLL = $(BUILD_DIR)/mylib.$(DLL_EXT)
+    LDFLAGS =
+else
+    # ---- LINUX SETTINGS ----
+    DLL_EXT = so
+    EXE_EXT = out
+    RM = rm -f
+    OUT = $(BUILD_DIR)/app.$(EXE_EXT)
+    DLL = $(BUILD_DIR)/libmylib.$(DLL_EXT)
+    LDFLAGS = -ldl
+endif
 
-test.o: tests/test.c
-	$(CC) $(CFLAGS) -c tests/test.c -o test.o
+# Sources
+LIST_SRC = $(SRC_DIR)/list.c
+ITER_SRC = $(SRC_DIR)/iter.c
+TEST_SRC = $(TEST_DIR)/test.c
 
-# link object files into executable
-list.exe: iter.o list.o test.o
-	$(CC) iter.o list.o test.o -o list.exe
-	@del /Q iter.o list.o test.o 2>nul || true
+# Objects
+LIST_OBJ = $(BUILD_DIR)/list.o
+ITER_OBJ = $(BUILD_DIR)/iter.o
+TEST_OBJ = $(BUILD_DIR)/test.o
 
-# clean up build artifacts
+# Default
+all: dirs $(DLL) $(OUT)
+
+dirs:
+	mkdir -p $(BUILD_DIR)
+
+# ------- Build DLL / SO -------
+$(DLL): $(LIST_OBJ) $(ITER_OBJ)
+	$(CC) -DBUILDING_DLL -shared $(LIST_OBJ) $(ITER_OBJ) -o $(DLL)
+
+# ------- Build objects -------
+$(LIST_OBJ): $(LIST_SRC) $(INC_DIR)/list.h
+	$(CC) $(CFLAGS) -c $(LIST_SRC) -o $(LIST_OBJ)
+
+$(ITER_OBJ): $(ITER_SRC) $(INC_DIR)/iter.h
+	$(CC) $(CFLAGS) -c $(ITER_SRC) -o $(ITER_OBJ)
+
+$(TEST_OBJ): $(TEST_SRC)
+	$(CC) $(CFLAGS) -c $(TEST_SRC) -o $(TEST_OBJ)
+
+# ------- Build executable -------
+$(OUT): $(TEST_OBJ)
+	$(CC) $(TEST_OBJ) -L$(BUILD_DIR) -lmylib -o $(OUT) $(LDFLAGS)
+
+# ------- Clean -------
 clean:
-	del /Q *.o list.exe
-
-
+	$(RM) $(BUILD_DIR)/*

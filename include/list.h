@@ -1,8 +1,13 @@
 #ifndef LIST_H
 #define LIST_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdbool.h>
 #include <stdio.h>
+#include "export.h"
 
 typedef struct Node{
     char* data;
@@ -16,49 +21,41 @@ typedef struct
     unsigned int size;
 }Mylist;
 
-Mylist createList();
-/**
- * @brief Adds an element to the front of the list.
- *
- * This function prepends the given string to the list.
- *
- * @param l pointer on the list.
- * @param data String to add to the list.
- * 
- *
- * @example
- * Mylist l = createList();
- * headpush(&l,"hi"); // now the head of the list contains "hi" 
- */
-void headpush(Mylist* l,char* data);
-void headpop(Mylist* l,char* out);
+API Mylist createList();
+
+API void headpush(Mylist* l,char* data);
+API void headpop(Mylist* l,char* out);
 
 
-void tailpush(Mylist* l,char* data);
-void tailpop(Mylist* l,char* out);
+API void tailpush(Mylist* l,char* data);
+API void tailpop(Mylist* l,char* out);
 
 // _______________________________________________________________
 
-Node* find(Mylist* l, const char* val);
-char* findValue(Mylist* l, const char* val);
+API Node* find(Mylist* l, const char* val);
+API char* findValue(Mylist* l, const char* val);
 
 
-Node* getByIndex(Mylist* l, unsigned int index);
-char* getValueByIndex(Mylist* l, unsigned int index);
-
-// _______________________________________________________________
-
-void insert_at(Mylist* l,char* data,size_t index);
-void erase_at(Mylist* l,char* out, size_t index);
+API Node* getByIndex(Mylist* l, unsigned int index);
+API char* getValueByIndex(Mylist* l, unsigned int index);
 
 // _______________________________________________________________
 
-void print_list(Mylist* l);
-int size(Mylist* l);
-bool isEmpty(Mylist* l);
+API void insert_at(Mylist* l,char* data,size_t index);
+API void erase_at(Mylist* l,char* out, size_t index);
 
 // _______________________________________________________________
 
-void freelist(Mylist* l);
+API void print_list(Mylist* l);
+API int size(Mylist* l);
+API bool isEmpty(Mylist* l);
+
+// _______________________________________________________________
+
+API void freelist(Mylist* l);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

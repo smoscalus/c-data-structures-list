@@ -1,13 +1,18 @@
 #ifndef ITER_H 
 #define ITER_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "list.h"
 #include <stdbool.h>
+#include "export.h"
 
-typedef struct
+typedef struct iter
 {
     Node* node;
-}iter;
+} iter;
 
 
 /**
@@ -24,7 +29,7 @@ typedef struct
  * headpush(&l,"hi");
  * iter i = begin(&l);
  */
-iter begin(Mylist* l);
+API iter begin(Mylist* l);
 /**
  * @brief Initializes an iterator on last node.
  *
@@ -40,7 +45,7 @@ iter begin(Mylist* l);
  * headpush(&l,"hi");
  * iter i = end(&l);
  */
-iter end(Mylist* l);
+API iter end(Mylist* l);
 
 // _______________________________________________________________
 
@@ -63,7 +68,7 @@ iter end(Mylist* l);
  * iter i = begin(&l);
  * next(&i); // now i.node->data == "hi"
  */
-void next(iter* it);
+API void next(iter* it);
 
 /**
  * @brief A sugar function for easier usage of `next()`.
@@ -85,7 +90,7 @@ void next(iter* it);
  * iter i = begin(&l);
  * char* res = nextvalue(&i);// now res == l.head->next->data
  */
-char* nextvalue(iter* it);
+API char* nextvalue(iter* it);
 
 
 /**
@@ -105,7 +110,7 @@ char* nextvalue(iter* it);
  * iter i = begin(&l);
  * char* res = get(&i); now res == l.head->data
  */
-char* get(iter* it);
+API char* get(iter* it);
 
 
 /**
@@ -126,7 +131,7 @@ char* get(iter* it);
  * next(&i); // now i.node->data == "hi"
  * reset(&i,&l); // now i.node->data == "world"
  */
-void reset(iter* it, Mylist* l);
+API void reset(iter* it, Mylist* l);
 
 
 /**
@@ -149,7 +154,7 @@ void reset(iter* it, Mylist* l);
  * 
  * int res = equals(&i,&j); now res == 0; i != j
  */
-bool equals(iter* it1, iter* it2);
+API bool equals(iter* it1, iter* it2);
 
 
 
@@ -170,6 +175,10 @@ bool equals(iter* it1, iter* it2);
  * iter i = begin(&l);
  * int res = hasNext(&i); res == true(1)
  */
-bool hasNext(iter* it);
+API bool hasNext(iter* it);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
